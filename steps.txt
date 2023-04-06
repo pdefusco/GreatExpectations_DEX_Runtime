@@ -1,0 +1,25 @@
+docker build --network=host -t pauldefusco/dex-spark-runtime-3.2.1-7.2.15.8:1.19.101-b45 -custom . -f Dockerfile
+docker build --network=host -t pauldefusco/dex_ge_spark2:v2 . -f Dockerfile
+
+
+dex-spark-runtime-3.2.1-7.2.15.8:1.19.101-b45
+
+cde credential create --name docker-creds --type docker-basic --docker-server hub.docker.com --docker-username pauldefusco
+
+
+cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v4 --image-engine spark2 --type custom-runtime-image
+
+cde --user pauldefusco spark submit spark-examples_2.11-2.4.4.jar --class org.apache.spark.examples.SparkPi 1000 --runtime-image-resource-name=custom-image-resource
+
+cde --user pauldefusco spark submit spark_python_example.py --runtime-image-resource-name=dex_ge_runtime
+
+
+
+cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v5 --image-engine spark2 --type custom-runtime-image
+
+cde job create --name ge_job_spark2 --type spark --mount-1-resource ge_resource --application-file spark_python_example.py --user pauldefusco --runtime-image-resource-name dex_ge_runtime
+
+
+
+
+cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v4 --image-engine spark2 --type custom-runtime-image
