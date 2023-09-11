@@ -1,6 +1,17 @@
-docker build --network=host -t pauldefusco/dex-spark-runtime-3.2.1-7.2.15.8:1.19.101-b45 -custom . -f Dockerfile
-docker build --network=host -t pauldefusco/dex_ge_spark2:v2 . -f Dockerfile
+docker build --network=host -t pauldefusco/dex-spark-runtime-3.2.3-7.2.15.8:1.20.0-b15-custom . -f Dockerfile
 
+docker push pauldefusco/dex-spark-runtime-3.2.3-7.2.15.8:1.20.0-b15-custom
+
+cde credential create --name docker-creds --type docker-basic --docker-server hub.docker.com --docker-username pauldefusco --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
+
+cde resource create --name dex-spark-runtime-greatexpectations --image pauldefusco/dex-spark-runtime-3.2.3-7.2.15.8:1.20.0-b15-custom --image-engine spark3 --type custom-runtime-image --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
+
+
+cde spark submit --user=pauldefusco spark_python_example.py --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
+
+
+
+docker pull docker.repository.cloudera.com/cloudera/dex/dex-spark-runtime-2.4.8-7.2.14.0-7.2.14.0:1.15.0-b117
 
 dex-spark-runtime-3.2.1-7.2.15.8:1.19.101-b45
 

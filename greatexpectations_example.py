@@ -1,7 +1,3 @@
-import os
-print("pip3 freeze")
-os.system("pip3 freeze")
-
 import sys
 print("Python version:")
 print(sys.version)
