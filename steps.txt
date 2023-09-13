@@ -6,31 +6,4 @@ cde credential create --name docker-creds --type docker-basic --docker-server hu
 
 cde resource create --name dex-spark-runtime-greatexpectations --image pauldefusco/dex-spark-runtime-3.2.3-7.2.15.8:1.20.0-b15-custom --image-engine spark3 --type custom-runtime-image --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
-
-cde spark submit --user=pauldefusco spark_python_example.py --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
-
-
-
-docker pull docker.repository.cloudera.com/cloudera/dex/dex-spark-runtime-2.4.8-7.2.14.0-7.2.14.0:1.15.0-b117
-
-dex-spark-runtime-3.2.1-7.2.15.8:1.19.101-b45
-
-cde credential create --name docker-creds --type docker-basic --docker-server hub.docker.com --docker-username pauldefusco
-
-
-cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v4 --image-engine spark2 --type custom-runtime-image
-
-cde --user pauldefusco spark submit spark-examples_2.11-2.4.4.jar --class org.apache.spark.examples.SparkPi 1000 --runtime-image-resource-name=custom-image-resource
-
-cde --user pauldefusco spark submit spark_python_example.py --runtime-image-resource-name=dex_ge_runtime
-
-
-
-cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v5 --image-engine spark2 --type custom-runtime-image
-
-cde job create --name ge_job_spark2 --type spark --mount-1-resource ge_resource --application-file spark_python_example.py --user pauldefusco --runtime-image-resource-name dex_ge_runtime
-
-
-
-
-cde resource create --name dex_ge_runtime --image pauldefusco/dex_ge_spark2:v4 --image-engine spark2 --type custom-runtime-image
+cde spark submit --user=pauldefusco greatexpectations_example.py --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
