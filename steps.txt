@@ -6,4 +6,6 @@ cde credential create --name docker-creds --type docker-basic --docker-server hu
 
 cde resource create --name dex-spark-runtime-greatexpectations --image pauldefusco/dex-spark-runtime-3.2.3-7.2.15.8:1.20.0-b15-custom --image-engine spark3 --type custom-runtime-image --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
-cde spark submit --user=pauldefusco greatexpectations_example.py --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
+cde spark submit --user=pauldefusco ge_example.py --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
+
+cde spark submit --user=pauldefusco ge_dataprofiler.py --executor-cores 4 --executor-memory "4g" --runtime-image-resource-name=dex-spark-runtime-greatexpectations --vcluster-endpoint https://jcxk6ghn.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
